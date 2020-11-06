@@ -1,5 +1,6 @@
 .idea
 .npmrc
+.serverless
 
 node_modules/
 build/

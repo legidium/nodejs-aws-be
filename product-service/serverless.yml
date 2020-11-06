@@ -1,0 +1,40 @@
+service: product-service
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: default
+  region: eu-west-1
+
+  apiGateway:
+    minimumCompressionSize: 1024
+
+  environment:
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+functions:
+  getProducts:
+    handler: handler.getProductsList
+    events:
+      - http:
+          method: get
+          path: products
+          cors: true
+
+  getProduct:
+    handler: handler.getProductById
+    events:
+      - http:
+          method: get
+          path: products/{productId}
+          cors: true
