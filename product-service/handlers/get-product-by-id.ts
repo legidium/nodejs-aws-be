@@ -1,20 +1,28 @@
 import {APIGatewayProxyHandler} from "aws-lambda";
-import {Product} from "../interfaces/product";
-import * as products from "../data/products.json";
-import {createResponse} from "../utils";
+import {Infrastructure, Product} from "../interfaces";
+import {InfrastructureImpl} from "../bootstrap";
+import {createSuccessResponse, createNotFoundResponse, createServerErrorResponse} from "./utils";
 
 export const getProductById: APIGatewayProxyHandler = async (event) => {
-  const {pathParameters} = event;
-  const {productId} = pathParameters || {};
+  const infrastructure: Infrastructure = new InfrastructureImpl();
 
-  const product: Product = products.items.find(({uuid}) => uuid === productId);
+  try {
+    await infrastructure.initialize();
+    const productsRepository = infrastructure.getProductsRepository();
 
-  if (!product) {
-    return createResponse(404, {
-      error: "Not Found",
-      message: "Product not found"
-    });
+    const {pathParameters} = event;
+    const {productId} = pathParameters || {};
+    const product: Product = await productsRepository.findById(productId);
+
+    if (!product) {
+      return createNotFoundResponse("Product not found");
+    }
+
+    return createSuccessResponse(product);
+
+  } catch (error) {
+    return createServerErrorResponse(error.message);
+  } finally {
+    await infrastructure.release();
   }
-
-  return createResponse(200, {data: product});
 }
