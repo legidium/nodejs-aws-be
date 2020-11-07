@@ -5,9 +5,12 @@
   "main": "handler.js",
   "scripts": {
     "lint": "eslint . --ext js,ts --cache --fix",
+    "deploy": "sls deply",
+    "build"
     "test": "jest"
   },
   "dependencies": {
+    "pg": "^8.4.2",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
