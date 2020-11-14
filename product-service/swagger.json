@@ -26,6 +26,20 @@
           }
         }
       },
+      "post": {
+        "summary": "Add new product",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns created product",
+            "schema": {
+              "$ref": "#/definitions/ProductsResponse"
+            }
+          }
+        }
+      },
       "options": {
         "consumes": [
           "application/json"
@@ -121,7 +135,7 @@
     "Product": {
       "type": "object",
       "properties": {
-        "uuid": {
+        "id": {
           "type": "string",
           "format": "uuid"
         },

@@ -13,6 +13,12 @@ provider:
 
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+    PG_HOST: lesson-4.cxhfwgzvdjjg.eu-west-1.rds.amazonaws.com
+    PG_PORT: 5432
+    PG_DATABASE: products_service
+    PG_USERNAME: postgres
+    PG_PASSWORD: qwerty123
+
 
 plugins:
   - serverless-webpack
@@ -28,6 +34,14 @@ functions:
     events:
       - http:
           method: get
+          path: products
+          cors: true
+
+  addProduct:
+    handler: handler.addProduct
+    events:
+      - http:
+          method: post
           path: products
           cors: true
 

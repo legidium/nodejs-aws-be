@@ -3,56 +3,56 @@
     {
       "count": 4,
       "description": "Lambswool comes from the first shearing of a young sheep (lamb) which is shorn",
-      "uuid": "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
+      "id": "7567ec4b-b10c-48c5-9345-fc73c48a80aa",
       "price": 2.4,
       "title": "Lambswool"
     },
     {
       "count": 6,
       "description": "Merino wool comes from the merino breed of sheep which have their origins in Spain",
-      "uuid": "7567ec4b-b10c-48c5-9345-fc73c48a80a0",
+      "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a0",
       "price": 10,
       "title": "Merino Wool"
     },
     {
       "count": 7,
       "description": "Shetland sheep, from the Shetland Islands of Scotland",
-      "uuid": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
+      "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
       "price": 23,
       "title": "Shetland Wool"
     },
     {
       "count": 12,
       "description": "Mohair comes from the Angora goat and is distinct from other wools for several reasons",
-      "uuid": "7567ec4b-b10c-48c5-9345-fc73c48a80a1",
+      "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a1",
       "price": 15,
       "title": "Mohair"
     },
     {
       "count": 7,
       "description": "Cashmere is shorn from the undercoat of cashmere (Kashmir) goats",
-      "uuid": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
+      "id": "7567ec4b-b10c-48c5-9345-fc73c48a80a2",
       "price": 23,
       "title": "Cashmere"
     },
     {
       "count": 8,
       "description": "Angora wool comes from Angora rabbits",
-      "uuid": "7567ec4b-b10c-48c5-9345-fc73348a80a1",
+      "id": "7567ec4b-b10c-48c5-9345-fc73348a80a1",
       "price": 15,
       "title": "Angora"
     },
     {
       "count": 2,
       "description": "Most camel hair comes from Bactrian camels",
-      "uuid": "7567ec4b-b10c-48c5-9445-fc73c48a80a2",
+      "id": "7567ec4b-b10c-48c5-9445-fc73c48a80a2",
       "price": 23,
       "title": "Camel Hair"
     },
     {
       "count": 3,
       "description": "Qiviut is wool that comes from the undercoat of the arctic muskox",
-      "uuid": "7567ec4b-b10c-45c5-9345-fc73c48a80a1",
+      "id": "7567ec4b-b10c-45c5-9345-fc73c48a80a1",
       "price": 15,
       "title": "Qiviut"
     }
