@@ -1,7 +1,7 @@
 import {APIGatewayProxyHandler} from "aws-lambda";
 import {Infrastructure, Product} from "../interfaces";
 import {InfrastructureImpl} from "../bootstrap";
-import {createSuccessResponse, createServerErrorResponse} from "./utils";
+import {createSuccessResponse, createServerErrorResponse} from "../../utils";
 
 export const getProductsList: APIGatewayProxyHandler = async () => {
   const infrastructure: Infrastructure = new InfrastructureImpl();
