@@ -1,2 +1,6 @@
-id,title,description,price,count
-7567ec4b-b10c-48c5-9345-fc73c48a80aa,Lambswool,Lambswool comes from the first shearing of a young sheep (lamb) which is shorn,2.4,5
+title,description,price,count
+Lambswool_1,Lambswool 1 comes from the first shearing of a young sheep (lamb) which is shorn,21,11
+Lambswool_2,Lambswool 2 comes from the first shearing of a young sheep (lamb) which is shorn,22,12
+Lambswool_3,Lambswool 3 comes from the first shearing of a young sheep (lamb) which is shorn,23,13
+Lambswool_4,Lambswool 4 comes from the first shearing of a young sheep (lamb) which is shorn,24,14
+Lambswool_5,Lambswool 5 comes from the first shearing of a young sheep (lamb) which is shorn,25,15

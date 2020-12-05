@@ -4,6 +4,7 @@ frameworkVersion: '2'
 
 custom:
   bucketName: my-shop-app-files
+  catalogItemsQueue: catalogItemsQueue
 
   webpack:
     webpackConfig: ./webpack.config.js
@@ -21,11 +22,19 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
     BUCKET_NAME: ${self:custom.bucketName}
+    SQS_URL:
+      Ref: SQSQueue
 
   iamRoleStatements:
     - Effect: Allow
-      Action:
-        - s3:*
+      Action: sqs:*
+      Resource:
+        - Fn::GetAtt:
+          - SQSQueue
+          - Arn
+
+    - Effect: Allow
+      Action: s3:*
       Resource: "arn:aws:s3:::${self:custom.bucketName}/*"
 
 plugins:
@@ -44,7 +53,7 @@ functions:
               querystrings:
                 name: true
 
-  importimportFileParser:
+  importFileParser:
     handler: handler.importFileParser
     events:
       - s3:
@@ -53,3 +62,10 @@ functions:
           rules:
             - prefix: uploaded/
             - suffix: .csv
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: ${self:custom.catalogItemsQueue}

@@ -2,31 +2,36 @@ service: product-service
 
 frameworkVersion: '2'
 
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
 provider:
   name: aws
   runtime: nodejs12.x
   profile: default
   region: eu-west-1
 
+  iamRoleStatements:
+    - Effect: Allow
+      Action: sqs:*
+      Resource: arn:aws:sqs:eu-west-1:227430465232:catalogItemsQueue
+
   apiGateway:
     minimumCompressionSize: 1024
 
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
     PG_HOST: lesson-4.cxhfwgzvdjjg.eu-west-1.rds.amazonaws.com
     PG_PORT: 5432
     PG_DATABASE: products_service
     PG_USERNAME: postgres
-    PG_PASSWORD: qwerty123
-
+    PG_PASSWORD: b1p1MYenufSSfeqAQ6DA
 
 plugins:
   - serverless-webpack
-
-custom:
-  webpack:
-    webpackConfig: ./webpack.config.js
-    includeModules: true
 
 functions:
   getProducts:
@@ -52,3 +57,11 @@ functions:
           method: get
           path: products/{productId}
           cors: true
+
+  catalogBatchProcess:
+    handler: handler.catalogBatchProcess
+    events:
+      - sqs:
+          batchSize: 3
+          arn: arn:aws:sqs:eu-west-1:227430465232:catalogItemsQueue
+          enabled: true

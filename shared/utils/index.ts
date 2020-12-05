@@ -1,3 +1,4 @@
+export * from "./logger";
 export * from "./create-response";
 export * from "./create-success-response";
 export * from "./create-not-found-response";

@@ -1,5 +1,5 @@
 import {Client} from "pg";
-import {Infrastructure, ProductsRepository} from "../interfaces";
+import {Infrastructure, ProductsRepository} from "../../shared/interfaces";
 import {ProductsRepositoryImpl} from "../data/repositories/products-repository-impl";
 
 type EnvironmentVariables = {[key: string]: any};

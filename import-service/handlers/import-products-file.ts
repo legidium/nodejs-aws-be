@@ -1,6 +1,6 @@
 import {S3} from "aws-sdk";
 import {APIGatewayProxyHandler} from "aws-lambda";
-import {createResponse, createServerErrorResponse, createSuccessResponse} from "../../utils";
+import {createResponse, createServerErrorResponse, createSuccessResponse} from "../../shared/utils";
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const EXPIRATION = 60 * 5;

@@ -1,5 +1,5 @@
 import {Client, QueryResult} from "pg";
-import {Product, ProductsRepository} from "../../interfaces";
+import {NewProduct, Product, ProductsRepository} from "../../../shared/interfaces";
 
 export class ProductsRepositoryImpl implements ProductsRepository {
   constructor(private db: Client) {}
@@ -21,12 +21,42 @@ export class ProductsRepositoryImpl implements ProductsRepository {
     return result.rows ? result.rows[0] : null;
   }
 
-  async create(data: Product): Promise<Product | null> {
-    const {title, description, price, count} = data;
+  async create(data: NewProduct): Promise<Product | null> {
     let result;
 
     try {
       await this.db.query('BEGIN');
+      result = await this.insertOne(data);
+      await this.db.query('COMMIT')
+    } catch (error) {
+      await this.db.query('ROLLBACK')
+      throw error;
+    }
+
+    return result;
+  }
+
+  async createBatched(data: NewProduct[]): Promise<Product | null> {
+    let result;
+
+    try {
+      await this.db.query('BEGIN');
+      result = await this.insertMany(data);
+      await this.db.query('COMMIT')
+    } catch (error) {
+      await this.db.query('ROLLBACK')
+      throw error;
+    }
+
+    console.log('[createBatched]', result);
+    return result;
+  }
+
+  private async insertOne(data: NewProduct): Promise<Product | null> {
+    const {title, description, price, count} = data;
+    let result;
+
+    try {
       result = await this.db.query(
         `INSERT INTO products(title, description, price) VALUES($1, $2, $3) RETURNING *`,
         [
@@ -37,13 +67,21 @@ export class ProductsRepositoryImpl implements ProductsRepository {
       );
       const product = result.rows[0] || {};
       await this.db.query(`INSERT INTO stocks(product_id, count) VALUES($1, $2)`, [product.id, count]);
-      await this.db.query('COMMIT')
-
       return {...product, count};
 
     } catch (error) {
-      await this.db.query('ROLLBACK')
+      console.log('[ERROR][insertOne]', error);
       throw error;
     }
+  }
+
+  private async insertMany(data: NewProduct[]): Promise<Product[] | null> {
+    const results = [];
+    for (let i = 0; i < data.length; i++) {
+      const result = await this.insertOne(data[i]); // TODO: Optimize bulk inserts
+      console.log('[insertOne]', result);
+      results.push(result);
+    }
+    return results;
   }
 }
